@@ -399,6 +399,16 @@ class Client(object):
             else:
                 self.reply("401 %s %s :No such nick/channel"
                            % (self.nickname, targetname))
+                           
+        def quiet_handler():
+            if len(arguments) < 1:
+                self.reply("You must specify the nick to kick: /kick <nick>")
+                return
+            if len(arguments) > 1:
+                nick = arguments[1]
+                file = open('quiets.txt', 'a')
+                file.write(nick + '\n')
+                file.close()
 
         def part_handler():
             if len(arguments) < 1:
